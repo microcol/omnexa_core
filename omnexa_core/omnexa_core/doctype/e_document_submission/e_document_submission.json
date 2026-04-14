@@ -7,8 +7,11 @@
  "field_order": [
   "reference_section",
   "company",
+  "branch",
   "reference_doctype",
   "reference_name",
+  "tax_authority_profile",
+  "signing_profile",
   "authority_operation",
   "payload_section",
   "payload_hash",
@@ -34,6 +37,12 @@
    "options": "Company"
   },
   {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
    "fieldname": "reference_doctype",
    "fieldtype": "Link",
    "label": "Reference DocType",
@@ -46,6 +55,18 @@
    "label": "Reference Name",
    "options": "reference_doctype",
    "reqd": 1
+  },
+  {
+   "fieldname": "tax_authority_profile",
+   "fieldtype": "Link",
+   "label": "Tax Authority Profile",
+   "options": "Tax Authority Profile"
+  },
+  {
+   "fieldname": "signing_profile",
+   "fieldtype": "Link",
+   "label": "Signing Profile",
+   "options": "Signing Profile"
   },
   {
    "default": "submit",
