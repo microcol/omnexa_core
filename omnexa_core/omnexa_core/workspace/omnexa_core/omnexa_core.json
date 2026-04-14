@@ -1,15 +1,15 @@
 {
  "charts": [],
- "content": "[{\"id\":\"omx-core-h1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Core</b></span>\",\"col\":12}},{\"id\":\"omx-core-c1\",\"type\":\"card\",\"data\":{\"card_name\":\"Company & compliance\",\"col\":4}}]",
+ "content": "[{\"id\":\"omx-core-h1\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Settings</b></span>\",\"col\":12}},{\"id\":\"omx-core-c1\",\"type\":\"card\",\"data\":{\"card_name\":\"Company & compliance\",\"col\":4}},{\"id\":\"omx-core-c2\",\"type\":\"card\",\"data\":{\"card_name\":\"Branch governance\",\"col\":4}}]",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
  "for_user": "",
  "hide_custom": 0,
- "icon": "organization",
+ "icon": "setting",
  "idx": 0,
  "is_hidden": 0,
- "label": "Core",
+ "label": "Settings",
  "links": [
   {
    "hidden": 0,
@@ -25,6 +25,16 @@
    "label": "Company",
    "link_count": 0,
    "link_to": "Company",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Branch",
+   "link_count": 0,
+   "link_to": "Branch",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -58,6 +68,24 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Branch governance",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "User Branch Access",
+   "link_count": 0,
+   "link_to": "User Branch Access",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
  "modified": "2026-04-13 15:30:00",
@@ -73,5 +101,5 @@
  "roles": [],
  "sequence_id": 5.0,
  "shortcuts": [],
- "title": "Core"
+ "title": "Settings"
 }

@@ -18,6 +18,9 @@ class Company(Document):
 	def before_save(self):
 		self._prevent_circular_parent()
 
+	def after_insert(self):
+		self._ensure_head_office_branch()
+
 	def _prevent_circular_parent(self):
 		if not self.parent_company:
 			return
@@ -48,3 +51,20 @@ class Company(Document):
 			frappe.throw(_("Tax Authority Profile must belong to the same company."), title=_("Validation"))
 		if sign_company and sign_company != self.name:
 			frappe.throw(_("Signing Profile must belong to the same company."), title=_("Validation"))
+
+	def _ensure_head_office_branch(self):
+		if not self.enable_branches:
+			return
+		if frappe.db.exists("Branch", {"company": self.name, "is_head_office": 1}):
+			return
+		branch = frappe.get_doc(
+			{
+				"doctype": "Branch",
+				"company": self.name,
+				"branch_name": f"{self.abbr} Head Office",
+				"branch_code": "HO",
+				"status": "Active",
+				"is_head_office": 1,
+			}
+		)
+		branch.insert(ignore_permissions=True)

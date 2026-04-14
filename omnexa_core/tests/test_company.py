@@ -39,6 +39,7 @@ class TestOmnexaCompany(FrappeTestCase):
 		doc.eta_einvoice_enabled = 0
 		doc.insert(ignore_permissions=True)
 		self.assertTrue(frappe.db.exists("Company", doc.name))
+		self.assertTrue(frappe.db.exists("Branch", {"company": doc.name, "is_head_office": 1}))
 
 	def test_company_eta_requires_profiles(self):
 		doc = frappe.new_doc("Company")

@@ -25,7 +25,7 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/omnexa_core/css/omnexa_core.css"
+app_include_css = "/assets/omnexa_core/css/omnexa_core.css"
 # app_include_js = "/assets/omnexa_core/js/omnexa_core.js"
 
 # include js, css files in header of web template
@@ -145,6 +145,11 @@ after_migrate = "omnexa_core.install.after_migrate"
 # 		"on_trash": "method"
 # 	}
 # }
+doc_events = {
+	"*": {
+		"before_validate": "omnexa_core.omnexa_core.user_context.apply_company_branch_defaults",
+	}
+}
 
 # Scheduled Tasks
 # ---------------

@@ -13,6 +13,7 @@ class Branch(Document):
 		self._validate_unique_code_per_company()
 		self._validate_parent_branch_company()
 		self._validate_einvoice_profiles()
+		self._validate_single_head_office()
 
 	def _validate_unique_code_per_company(self):
 		if not self.company or not self.branch_code:
@@ -57,3 +58,17 @@ class Branch(Document):
 			frappe.throw(_("Tax Authority Profile must belong to the same company."), title=_("Validation"))
 		if sign_company and sign_company != self.company:
 			frappe.throw(_("Signing Profile must belong to the same company."), title=_("Validation"))
+
+	def _validate_single_head_office(self):
+		if not self.is_head_office:
+			return
+		dupe = frappe.db.exists(
+			"Branch",
+			{
+				"company": self.company,
+				"is_head_office": 1,
+				"name": ("!=", self.name),
+			},
+		)
+		if dupe:
+			frappe.throw(_("Only one head office branch is allowed per company."), title=_("Validation"))

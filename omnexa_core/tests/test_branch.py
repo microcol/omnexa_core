@@ -143,3 +143,17 @@ class TestOmnexaBranch(FrappeTestCase):
 					"signing_profile": sign_b.name,
 				}
 			).insert(ignore_permissions=True)
+
+	def test_single_head_office_per_company(self):
+		company = self._make_company("I")
+		# Company bootstrap creates one head office automatically.
+		with self.assertRaises(frappe.ValidationError):
+			frappe.get_doc(
+				{
+					"doctype": "Branch",
+					"company": company.name,
+					"branch_name": "Head Office Extra",
+					"branch_code": "HOX",
+					"is_head_office": 1,
+				}
+			).insert(ignore_permissions=True)
