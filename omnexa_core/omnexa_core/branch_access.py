@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import frappe
 from frappe import _
+from frappe.utils import get_table_name
 
 
 PRIVILEGED_ROLES = {"System Manager", "Company Admin"}
@@ -108,3 +109,16 @@ def enforce_branch_access(doc, user: str | None = None):
 	allowed = set(get_allowed_branches(user, company) or [])
 	if branch not in allowed:
 		frappe.throw(_("You are not allowed to access this branch."), title=_("Branch Access"))
+
+
+def permission_query_conditions_for_branch_field(doctype: str, user: str | None = None) -> str:
+	"""Return a SQL fragment for list permission matching `branch` on `doctype` (or allow all if unrestricted)."""
+	user = user or frappe.session.user
+	allowed = get_allowed_branches(user)
+	if allowed is None:
+		return ""
+	if not allowed:
+		return "1=0"
+	table = get_table_name(doctype, wrap_in_backticks=True)
+	quoted = ", ".join([frappe.db.escape(v) for v in allowed])
+	return f"({table}.branch in ({quoted}) or {table}.branch is null or {table}.branch = '')"

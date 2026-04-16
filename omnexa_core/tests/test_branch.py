@@ -4,6 +4,8 @@
 import frappe
 from frappe.tests.utils import FrappeTestCase
 
+from omnexa_core.omnexa_core.branch_access import permission_query_conditions_for_branch_field
+
 
 class TestOmnexaBranch(FrappeTestCase):
 	def setUp(self):
@@ -157,3 +159,11 @@ class TestOmnexaBranch(FrappeTestCase):
 					"is_head_office": 1,
 				}
 			).insert(ignore_permissions=True)
+
+	def test_branch_permission_query_unrestricted_for_admin(self):
+		frappe.set_user("Administrator")
+		self.assertEqual(permission_query_conditions_for_branch_field("Project Contract"), "")
+
+	def test_branch_permission_query_accepts_spaced_doctype_names(self):
+		frappe.set_user("Administrator")
+		self.assertEqual(permission_query_conditions_for_branch_field("BOQ Item"), "")
